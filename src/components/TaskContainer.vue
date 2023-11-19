@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import TaskHeader from './TaskHeader.vue';
 import TaskFooter from './TaskFooter.vue';
 
@@ -14,12 +14,19 @@ const tasks = ref([
 ]);
 
 // Update completed count on mount.
+watch(() => {
+    let completed = tasks.value.filter(t => t.isCompleted);
+    completedCount.value = completed.length;
+});
 
+// Add task to list
+// Clear all tasks
+// Clear completed tasks
 </script>
 
 <template>
     <div class="container">
-        <TaskHeader />
+        <TaskHeader :completedCount="completedCount" />
         <ul>
             <li v-for="task in tasks" :key="task.id">
                 <input type="checkbox" v-model="task.isCompleted" /> {{ task.text }}
