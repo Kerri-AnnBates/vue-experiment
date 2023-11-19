@@ -13,11 +13,11 @@ const tasks = ref([
     { id: id++, text: "Task 4", isCompleted: false }
 ]);
 
-// Update completed count on mount.
-watch(completedCount, () => {
-    let completed = tasks.value.filter(t => t.isCompleted);
-    completedCount.value = completed.length;
-});
+// Update completed tasks count.
+watch(tasks.value, (completed) => {
+    completed = tasks.value.filter(t => t.isCompleted);
+    completedCount.value = completed.length
+})
 
 // Add task to list
 // Clear all tasks
